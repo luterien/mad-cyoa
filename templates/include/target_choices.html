@@ -1,0 +1,22 @@
+			{% for choice in sources %}
+				<div class="choice-container trgt">
+					<div class="choice_name">
+						<textarea rows="1" class="chctrg_text_{{ choice.id }}" id="{{ choice.target.slug }}">{{ choice.text }}</textarea>
+					</div>
+					<div class="choice_opts">
+						<select class="chctrg_snippet">
+							{% for snippet in snippets %}
+								<option value="{{ snippet.name }}" {% if choice.target == snippet %}selected{% endif %}>{{ snippet.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="choice_action">
+						<a id="{{ choice.target.slug }}">>></a>
+					</div>
+				</div>
+			{% endfor %}
+				<div class="choice-container add_target_choice">
+					<span style="background:#eee; padding:5px 10px;">
+						<span id="{{ choice.source.slug }}">+</span>
+					</span>
+				</div>

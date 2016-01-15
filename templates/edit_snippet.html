@@ -1,0 +1,190 @@
+<div>
+
+	<script type="text/javascript"></script>
+	<style type="text/css">
+
+		.page-item {
+			margin-bottom: 12px;
+			font-size: 13px;
+			width: 100%; 
+		}
+
+		.choice-container {
+			padding: 10px 0;
+			width: 800px; overflow: auto;
+		}
+
+		.choice_name {
+			width: 480px; float: left;
+		}
+		.choice_name textarea {
+			width: 480px; height: 30px;
+		}
+
+		.choice_opts {
+			width: 280px; float: left; padding-left: 10px;
+		}
+		.choice_opts select {
+			width: 280px; height: 30px;
+		}
+
+		.choice_action {
+			width: 30px; float: right; text-align: right;
+		}
+		.choice_action a {
+			color: #000;
+		}
+
+	</style>
+
+	<div class="frm">
+
+		<div class="page-item">
+			<div class="source_choices">
+			{% for choice in snippet.targets.all %}
+				<div class="choice-container">
+					<div class="choice_name">
+						<textarea rows="1" class="choice_item chcsrc_text_{{ choice.id }}" id="{{ choice.source.slug }}">{{ choice.text }}</textarea>
+					</div>
+					<div class="choice_opts">
+						<select class="chcsrc_snippet">
+							{% for snippet in snippets %}
+								<option value="{{ snippet.name }}" {% if choice.source == snippet %}selected{% endif %}>{{ snippet.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="choice_action">
+						<a id="{{ choice.source.slug }}">>></a>
+					</div>
+				</div>
+			{% endfor %}
+				<div class="choice-container add_source_choice">
+					<span style="background:#eee; padding:5px 10px;">
+						<span id="{{ choice.source.slug }}">+</span>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-item">
+			<textarea id="snippet_text" style="width:100%;" rows="8">{{ snippet.text }}</textarea>
+		</div>
+
+		<div class="page-item">
+			<div class="target_choices">
+			{% for choice in snippet.sources.all %}
+				<div class="choice-container trgt">
+					<div class="choice_name">
+						<textarea rows="1" class="chctrg_text_{{ choice.id }}" id="{{ choice.target.slug }}">{{ choice.text }}</textarea>
+					</div>
+					<div class="choice_opts">
+						<select class="chctrg_snippet">
+							{% for snippet in snippets %}
+								<option value="{{ snippet.name }}" {% if choice.target == snippet %}selected{% endif %}>{{ snippet.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="choice_action">
+						<a id="{{ choice.target.slug }}">>></a>
+					</div>
+				</div>
+			{% endfor %}
+				<div class="choice-container add_target_choice">
+					<span style="background:#eee; padding:5px 10px;">
+						<span id="{{ choice.source.slug }}">+</span>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="page-item">
+			<input type="hidden" name="csrfmiddlewaretoken" class="csrfmiddlewaretoken" value="{{ csrf_token }}">
+			<input type="hidden" value="{{ snippet.id }}" class="snippet_id">
+			<input type="submit" value="save" id="sv_form">
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		function get_target_data(){
+			var namesArr = []
+			$(".target_choices .trgt").each(function(){
+				var name_cls = $(this).find("textarea").attr("class");
+				console.log(name_cls);
+			});
+		}
+
+		var target_choice_template = "<div class='choice-container src'><div class='choice_name'><textarea rows='1' class='chcsrc_text_0' id='{{ choice.source.slug }}'>{{ choice.text }}</textarea></div><div class='choice_opts'><select class='chcsrc_snippet'>{% for snippet in snippets %}<option value='{{ snippet.name }}' {% if choice.source == snippet %}selected{% endif %}>{{ snippet.name }}</option>{% endfor %}</select></div><div class='choice_action'><a id='{{ choice.source.slug }}'>>></a></div></div>"
+
+		var source_choice_template = "<div class='choice-container trgt'><div class='choice_name'><textarea rows='1' class='choice_item chctrg_text_0' id='{{ choice.target.slug }}'>{{ choice.text }}</textarea></div><div class='choice_opts'><select class='chctrg_snippet'>{% for snippet in snippets %}<option value='{{ snippet.name }}' {% if choice.target == snippet %}selected{% endif %}>{{ snippet.name }}</option>{% endfor %}</select></div><div class='choice_action'><a id='{{ choice.target.slug }}'>>></a></div></div>"
+
+		$(".add_source_choice").on('click', function(){
+			$(this).before(source_choice_template);
+		});
+
+		$(".add_target_choice").on('click', function(){
+			$.ajax({
+	        	method: "POST",
+	        	url: "{% url 'add-target-choice' %}",
+	        	data: {
+	        		"snippet_id": $(".snippet_id").val(),
+	        		"csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+	        	},
+	        	success:function(data) {
+			        $(".target_choices").html(data);
+			    } 
+			})
+		});
+
+		$(".choice_action a").on('click', function(){
+			var slug = $(this).attr("id");
+			window.parent.loadFancy(slug);
+		});
+
+		// testing
+		$("#sv_form").on('click', function(){
+
+			var snippet_id = $(".snippet_id").val();
+			var snippet_content = $("#snippet_text").val();
+			var csrfmiddlewaretoken = $(".csrfmiddlewaretoken").val();
+
+			var data =  {
+        		"content": snippet_content, 
+        		"snippet_id": snippet_id,
+        		"csrfmiddlewaretoken": csrfmiddlewaretoken,
+	        };
+
+			$.ajax({
+	        	method: "POST",
+	        	url: "{% url 'update-snippet' %}",
+	        	data: {
+	        		"content": snippet_content, 
+	        		"snippet_id": snippet_id,
+	        		"csrfmiddlewaretoken": csrfmiddlewaretoken,
+	        	},
+	        	success:function(data) {
+			        console.log(data);
+			    } 
+	        })
+
+		});
+
+		// save
+		/*
+		$.ajax({
+        	method: "POST",
+        	url: "{% url 'update-snippet' %}",
+        	data: {"status": status, "game_id": "{{ game.id }}"},
+        	success:function(data) {
+		        $(".ntfy").html("Updated");
+		        $('.ntfy').fadeIn(400).delay(1500).fadeOut(400); //fade out after 3 seconds
+		    } 
+        });*/
+
+	});
+</script>
