@@ -1,0 +1,28 @@
+				<div class="choice-container src">
+					<div class="choice_name">
+						<textarea rows="2" class="chcsrc_text_{{ choice.id }}" id="{{ choice.source.slug }}">{{ choice.text }}</textarea>
+					</div>
+					<div class="choice_opts">
+						<select class="chcsrc_snippet">
+								<option value="">---</option>
+							{% for snippet in snippets %}
+								<option value="{{ snippet.name }}" {% if choice.source == snippet %}selected{% endif %} id="{{ snippet.id }}">{{ snippet.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="choice_go">
+						<a id="{{ choice.source.slug }}">
+							<img src="/static/icons/undo_icon.png">
+						</a>
+					</div>
+					<div class="choice_action">
+						<a id="{{ choice.id }}" class="source_action">
+							<img src="/static/icons/reld.png">
+						</a>
+					</div>
+					<div class="choice_remove">
+						<a id="{{ choice.id }}" class="delete_choice">
+							<img src="/static/icons/delete.png">
+						</a>
+					</div>
+				</div>

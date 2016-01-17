@@ -19,6 +19,7 @@ from django.contrib import admin
 
 from apps.stories.views import ChapterDetail
 
+
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
@@ -26,9 +27,13 @@ urlpatterns = [
     url(r'^test/$', 'apps.main.views.test'),
 
     url(r'^chapter/(?P<slug>[\w-]+)/$', ChapterDetail.as_view(), name="chapter-detail"),
+    url(r'^snippet/(?P<slug>[\w-]+)/edit/$', 'apps.stories.views.edit_snippet', name="edit-snippet"),
     
     url(r'^snippet/update/$', 'apps.stories.views.update_snippet', name="update-snippet"),
     url(r'^snippet/add_target_choice/$', 'apps.stories.views.add_target_choice', name="add-target-choice"),
-    url(r'^snippet/(?P<slug>[\w-]+)/edit/$', 'apps.stories.views.edit_snippet', name="edit-snippet"),
-
+    url(r'^snippet/add_source_choice/$', 'apps.stories.views.add_source_choice', name="add-source-choice"),
+    url(r'^snippet/delete_choice/$', 'apps.stories.views.delete_choice', name="delete-choice"),
+    url(r'^snippet/update_source_choice/$', 'apps.stories.views.update_source_choice', name="update-source-choice"),
+    url(r'^snippet/update_target_choice/$', 'apps.stories.views.update_target_choice', name="update-target-choice"),
+    
 ]

@@ -1,0 +1,28 @@
+				<div class="choice-container trgt">
+					<div class="choice_name">
+						<textarea rows="2" class="chctrg_text_{{ choice.id }}" id="{{ choice.target.slug }}">{{ choice.text }}</textarea>
+					</div>
+					<div class="choice_opts">
+						<select class="chctrg_snippet">
+								<option value="">---</option>
+							{% for snippet in snippets %}
+								<option value="{{ snippet.name }}" {% if choice.target == snippet %}selected{% endif %} id="{{ snippet.id }}">{{ snippet.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="choice_go">
+						<a id="{{ choice.target.slug }}">
+							<img src="/static/icons/redo_icon.png">
+						</a>
+					</div>
+					<div class="choice_action">
+						<a id="{{ choice.id }}" class="target_action">
+							<img src="/static/icons/reld.png">
+						</a>
+					</div>
+					<div class="choice_remove">
+						<a id="{{ choice.id }}" class="delete_choice">
+							<img src="/static/icons/delete.png">
+						</a>
+					</div>
+				</div>

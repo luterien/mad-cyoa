@@ -14,25 +14,45 @@
 			width: 800px; overflow: auto;
 		}
 
+		.choice_go {
+			width: 36px; float: left;
+		}
+
 		.choice_name {
-			width: 480px; float: left;
+			width: 418px; float: left;
 		}
 		.choice_name textarea {
-			width: 480px; height: 30px;
+			width: 418px; 
 		}
 
 		.choice_opts {
-			width: 280px; float: left; padding-left: 10px;
+			width: 259px; float: left; padding-left: 10px;
 		}
 		.choice_opts select {
-			width: 280px; height: 30px;
+			width: 259px; height: 34px;
 		}
 
 		.choice_action {
-			width: 30px; float: right; text-align: right;
+			width: 36px; float: right; text-align: right;
 		}
 		.choice_action a {
 			color: #000;
+		}
+
+		.choice_remove {
+			width: 36px; float: right; text-align: left;
+		}
+
+		.choice-container img {
+			width: 24px; height: 24px;
+			position: relative; top: 3px;
+			margin: 0 0 0 12px;
+		}
+
+		.choice_remove img {
+			width: 18px; height: 18px;
+			position: relative; top: 6px;
+			margin: 0 0 0 12px;
 		}
 
 	</style>
@@ -41,28 +61,14 @@
 
 		<div class="page-item">
 			<div class="source_choices">
-			{% for choice in snippet.targets.all %}
-				<div class="choice-container">
-					<div class="choice_name">
-						<textarea rows="1" class="choice_item chcsrc_text_{{ choice.id }}" id="{{ choice.source.slug }}">{{ choice.text }}</textarea>
-					</div>
-					<div class="choice_opts">
-						<select class="chcsrc_snippet">
-							{% for snippet in snippets %}
-								<option value="{{ snippet.name }}" {% if choice.source == snippet %}selected{% endif %}>{{ snippet.name }}</option>
-							{% endfor %}
-						</select>
-					</div>
-					<div class="choice_action">
-						<a id="{{ choice.source.slug }}">>></a>
-					</div>
-				</div>
-			{% endfor %}
-				<div class="choice-container add_source_choice">
-					<span style="background:#eee; padding:5px 10px;">
-						<span id="{{ choice.source.slug }}">+</span>
-					</span>
-				</div>
+				{% for choice in snippet.sources.all %}
+				{% include 'include/source_single.html' %}
+				{% endfor %}
+			</div>
+			<div class="choice-container add_source_choice">
+				<span style="background:#eee; padding:5px 10px;">
+					<span id="{{ choice.source.slug }}">+</span>
+				</span>
 			</div>
 		</div>
 
@@ -71,24 +77,12 @@
 		</div>
 
 		<div class="page-item">
-			<div class="target_choices">
-			{% for choice in snippet.sources.all %}
-				<div class="choice-container trgt">
-					<div class="choice_name">
-						<textarea rows="1" class="chctrg_text_{{ choice.id }}" id="{{ choice.target.slug }}">{{ choice.text }}</textarea>
-					</div>
-					<div class="choice_opts">
-						<select class="chctrg_snippet">
-							{% for snippet in snippets %}
-								<option value="{{ snippet.name }}" {% if choice.target == snippet %}selected{% endif %}>{{ snippet.name }}</option>
-							{% endfor %}
-						</select>
-					</div>
-					<div class="choice_action">
-						<a id="{{ choice.target.slug }}">>></a>
-					</div>
+			<div class>
+				<div class="target_choices">
+					{% for choice in snippet.targets.all %}
+					{% include 'include/target_single.html' %}
+					{% endfor %}
 				</div>
-			{% endfor %}
 				<div class="choice-container add_target_choice">
 					<span style="background:#eee; padding:5px 10px;">
 						<span id="{{ choice.source.slug }}">+</span>
@@ -111,20 +105,35 @@
 
 	$(document).ready(function() {
 
-		function get_target_data(){
-			var namesArr = []
-			$(".target_choices .trgt").each(function(){
-				var name_cls = $(this).find("textarea").attr("class");
-				console.log(name_cls);
-			});
-		}
-
-		var target_choice_template = "<div class='choice-container src'><div class='choice_name'><textarea rows='1' class='chcsrc_text_0' id='{{ choice.source.slug }}'>{{ choice.text }}</textarea></div><div class='choice_opts'><select class='chcsrc_snippet'>{% for snippet in snippets %}<option value='{{ snippet.name }}' {% if choice.source == snippet %}selected{% endif %}>{{ snippet.name }}</option>{% endfor %}</select></div><div class='choice_action'><a id='{{ choice.source.slug }}'>>></a></div></div>"
-
-		var source_choice_template = "<div class='choice-container trgt'><div class='choice_name'><textarea rows='1' class='choice_item chctrg_text_0' id='{{ choice.target.slug }}'>{{ choice.text }}</textarea></div><div class='choice_opts'><select class='chctrg_snippet'>{% for snippet in snippets %}<option value='{{ snippet.name }}' {% if choice.target == snippet %}selected{% endif %}>{{ snippet.name }}</option>{% endfor %}</select></div><div class='choice_action'><a id='{{ choice.target.slug }}'>>></a></div></div>"
+		$(".delete_choice").on('click', function(){
+			var el = $(this).closest(".choice-container");
+			$.ajax({
+	        	method: "POST",
+	        	url: "{% url 'delete-choice' %}",
+	        	data: {
+	        		"choice_id": $(this).attr("id"),
+	        		"csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+	        	},
+	        	success:function(data) {
+			        el.remove();
+			        window.parent.toast("Choice Deleted");
+			    } 
+			})
+		});
 
 		$(".add_source_choice").on('click', function(){
-			$(this).before(source_choice_template);
+			$.ajax({
+	        	method: "POST",
+	        	url: "{% url 'add-source-choice' %}",
+	        	data: {
+	        		"snippet_id": $(".snippet_id").val(),
+	        		"csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+	        	},
+	        	success:function(data) {
+			        $(".source_choices").html(data);
+			        window.parent.toast("Updated");
+			    } 
+			})
 		});
 
 		$(".add_target_choice").on('click', function(){
@@ -137,11 +146,46 @@
 	        	},
 	        	success:function(data) {
 			        $(".target_choices").html(data);
+			        window.parent.toast("Updated");
 			    } 
 			})
 		});
 
-		$(".choice_action a").on('click', function(){
+		$(".source_action").on('click', function(){
+			var data = {
+	        		"choice_id": $(this).attr("id"),
+	        		"source_id": $(this).closest(".choice-container").find("select").find("option:selected").attr("id"),
+	        		"choice_text": $(this).closest(".choice-container").find("textarea").val(),
+	        		"csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+	        	};
+			$.ajax({
+	        	method: "POST",
+	        	url: "{% url 'update-source-choice' %}",
+	        	data: data,
+	        	success:function(data) {
+			        window.parent.toast("Updated");
+			    } 
+			})
+		});
+
+		$(".target_action").on('click', function(){
+			var data = {
+	        		"choice_id": $(this).attr("id"),
+	        		"target_id": $(this).closest(".choice-container").find("select").find("option:selected").attr("id"),
+	        		"choice_text": $(this).closest(".choice-container").find("textarea").val(),
+	        		"csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+	        	};
+			$.ajax({
+	        	method: "POST",
+	        	url: "{% url 'update-target-choice' %}",
+	        	data: data,
+	        	success:function(data) {
+			        window.parent.toast("Updated");
+			    } 
+			})
+		});
+
+		$(".choice_go a").on('click', function(){
 			var slug = $(this).attr("id");
 			window.parent.loadFancy(slug);
 		});
@@ -169,6 +213,7 @@
 	        	},
 	        	success:function(data) {
 			        console.log(data);
+			        window.parent.toast("Content Changed");
 			    } 
 	        })
 
