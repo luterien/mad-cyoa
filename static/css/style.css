@@ -114,7 +114,7 @@ ul {
 }
 
 .menu-container .play-game {
-    width: 42%; float: left; text-align: right;
+    width: 43%; float: left; text-align: right;
 }
 
 .play-game img {
@@ -122,7 +122,7 @@ ul {
 }
 
 .menu-container .more {
-    width: 8%; float: right; text-align: right;
+    width: 7%; float: right; text-align: right;
 }
 
 .more img {
@@ -130,17 +130,26 @@ ul {
 }
 
 .menu-container .dropdown {
-    position: fixed; right: 10%; top: 55px; margin-right: 13px;
+    position: fixed; right: 10%; top: 52px; margin-right: 13px; background: #000;
+    border: 1px solid #000;
 }
 
 .menu-container .dropdown ul li {
-    background: #798285; padding: 5px 0; border-bottom: 1px solid #3B494D;
+    padding: 8px 0; 
 }
 
 .menu-container .dropdown ul li a {
-    color: #fff; padding: 0 18px; text-decoration: none; font-size: 14px;
+    color: #000; padding: 8px 18px; text-decoration: none; background: #fff; font-size: 14px;
+}
+
+.menu-container .dropdown ul li a:hover {
+    background: #798285;
 }
 
 .menu-container .ddhidden {
     display: none;
 }
+
+
+
+
