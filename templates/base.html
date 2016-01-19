@@ -7,19 +7,44 @@
 <link rel="stylesheet" href="/static/fancyBox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
 <script type="text/javascript" src="/static/fancyBox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<script type="text/javascript">
 
+$(document).ready(function() {
+    $('.more').click(function() {
+        $('.dropdown').toggleClass('ddhidden');
+    });
+});
+
+</script>
 {% block Js %}
 {% endblock %}
 </head>
 <body>
 
-<div style="width: 100%; overflow:auto; background:#000;">
-    <div>menu</div>
-    <div>play</div>
-    <div><img src="/static/icons/drawer.png"></div>
+<div class="menu-container">
+    <div class="menu-items">
+        <div class="title">
+            <a>MadCYOA</a>
+        </div>
+        <div class="play-game">
+            <a href="">
+                <img src="/static/icons/play.png">
+            </a>
+        </div>
+        <div class="more">
+            <img src="/static/icons/drawer.png">
+        </div>
+        <div class="dropdown ddhidden">
+            <ul>
+                <li><a href="">random link</a></li>
+                <li><a href="">random link</a></li>
+                <li><a href="">random link</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
-<div>
+<div class="page-content">
 {% block pageContent %}
 {% endblock %}
 </div>
