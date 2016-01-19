@@ -151,5 +151,24 @@ ul {
 }
 
 
+/* chapter_detail.html */
 
+.snp {
+    width: 19%; float:left; background: #eee; margin-right:1%; height: 200px; margin-top: 10px;
+}
 
+.snp-text {
+    padding: 10px;
+}
+
+.snp:hover {
+    cursor: pointer;
+}
+
+.new-snippet {
+    font-size: 40px; text-align: center; 
+}
+
+.add-snippet {
+    margin-top: 70px; color: #798285;
+}

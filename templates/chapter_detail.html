@@ -5,12 +5,17 @@
 <div style="width: 100%; overflow:auto; font-family: Tahoma; font-size: 14px;">
 
 	{% for snippet in object.related_snippets.all %}
-	<div class="snp" id="{{ snippet.slug }}" style="width: 19%; float:left; background: #eee; margin-right:1%; height: 200px; margin-top: 10px;">
-		<div style="padding: 10px;">
+	<div class="snp snippet" id="{{ snippet.slug }}">
+		<div class="snp-text">
 			{{ snippet.text }}
 		</div>
 	</div>
 	{% endfor %}
+	<div class="snp new-snippet" id="{{ snippet.slug }}">
+		<div class="add-snippet">
+			+
+		</div>
+	</div>
 
 	<div class="notify"></div>
 
@@ -35,7 +40,7 @@ $(document).ready(function() {
 	    });
 	}
 
-	$('.snp').on('click', function(){
+	$(document).on('click', '.snippet', function(){
 
 		var target_slug = $(this).attr("id");
 
@@ -47,6 +52,12 @@ $(document).ready(function() {
 	        href: '/snippet/' + target_slug + '/edit/',
 	        type: 'ajax'
 	    });
+
+	});
+
+	$('.new-snippet').on('click', function(){
+
+
 
 	});
 
