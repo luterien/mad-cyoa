@@ -1,10 +1,13 @@
 import json
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 
 from .models import Chapter, Snippet, Choice, Story
+from .forms import CreateChapterForm, CreateStoryForm
 
 
 class ChapterDetail(DetailView):
@@ -13,15 +16,42 @@ class ChapterDetail(DetailView):
 
 
 def story_detail(request, slug):
-
 	"""
 		display story details
 		todo: add permission checks & redesign the template
 	"""
-
 	story = get_object_or_404(Story, slug=slug)
 
 	return render(request, "stories/story_detail.html", {"story": story})
 
 
+def create_chapter(request, story_id):
+
+	if request.method == "POST":
+		story = get_object_or_404(Story, id=story_id)
+		form = CreateChapterForm(request.POST)
+
+		if form.is_valid():
+			name = form.cleaned_data["name"]
+			chapter = Chapter.objects.create(story=story, name=name)
+			return redirect(reverse("my-stories"))
+	else:
+		form = CreateChapterForm()
+
+	return render(request, "stories/create_chapter.html", {"form": form})
+
+
+def create_story(request):
+
+	if request.method == "POST":
+		form = CreateStoryForm(request.POST)
+
+		if form.is_valid():
+			name = form.cleaned_data["name"]
+			story = Story.objects.create(name=name, owner=request.user)
+			return redirect(reverse("my-stories"))
+	else:
+		form = CreateStoryForm()
+
+	return render(request, "stories/create_story.html", {"form": form})
 

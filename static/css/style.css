@@ -180,3 +180,30 @@ ul {
 .add-snippet {
     margin-top: 70px; color: #fff;
 }
+
+
+/* my_stories.html */
+
+.story-item {
+    margin-bottom: 20px;
+}
+
+.story-name {
+    font-weight: bold; padding: 5px 0; border-bottom: 2px solid #000; 
+}
+
+.story-name span {
+    padding: 0 8px;
+}
+
+.story-name a {
+    float: right; text-decoration: none; color: #000; font-size: 13px;
+}
+
+.story-chapters {
+    padding: 12px 0 0 8px; width: 100%; overflow: auto;
+}
+
+.chapter-detail {
+    margin-right: 7px; float: left;
+}

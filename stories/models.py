@@ -6,7 +6,6 @@ from django.conf import settings
 from autoslug import AutoSlugField
 
 
-
 class Displayable(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     slug = AutoSlugField(populate_from="name", unique=True, null=True, blank=True)

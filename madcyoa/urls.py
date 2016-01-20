@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^test/$', 'main.views.test'),
 
     url(r'^chapter/(?P<slug>[\w-]+)/$', ChapterDetail.as_view(), name="chapter-detail"),
+    url(r'^story/(?P<story_id>\d+)/chapter/create/$', 'stories.views.create_chapter', name="create-chapter"),
 
     url(r'^snippet/(?P<slug>[\w-]+)/edit/$', 'stories.ajax.edit_snippet', name="edit-snippet"),
     url(r'^snippet/update/$', 'stories.ajax.update_snippet', name="update-snippet"),
@@ -40,6 +41,7 @@ urlpatterns = [
     url(r'^snippet/update_source_choice/$', 'stories.ajax.update_source_choice', name="update-source-choice"),
     url(r'^snippet/update_target_choice/$', 'stories.ajax.update_target_choice', name="update-target-choice"),
     url(r'^snippet/create/$', 'stories.ajax.create_snippet', name="create-snippet"),
+    url(r'^story/create/$', 'stories.views.create_story', name="create-story"),
     url(r'^story/(?P<slug>[\w-]+)/$', 'stories.views.story_detail', name="story-detail"),
     
 ]
