@@ -4,6 +4,21 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from .models import Snippet, Choice, Chapter
+from .game import Game
+
+
+def make_play(request):
+
+    s_id = request.POST.get("selected_id")
+    c_id = request.POST.get("chapter_id")
+
+    chapter = Chapter.objects.get(id=int(c_id))
+    snippet = Snippet.objects.get(id=int(s_id))
+
+    game = Game(request, chapter=chapter)
+    game.move(int(s_id))
+
+    return render(request, "stories/inc/game_content.html", {"snippet": snippet})
 
 
 def edit_snippet(request, slug):

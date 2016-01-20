@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block Js %}
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('.choice').click(function() {
+        $.ajax({
+        	method: 'post',
+        	url: '{% url "make-play" %}',
+        	data: {
+        		"selected_id": $(this).attr("id"),
+        		"csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+                "chapter_id": {{ snippet.chapter.id }},
+        	},
+        	success:function(data){
+        		$(".game").html(data);
+        	}
+        })
+    });
+});
+
+</script>
+{% endblock %}
+
+{% block pageContent %}
+
+<div class="game">
+
+{% include 'stories/inc/game_content.html' %}
+
+</div>
+
+<input type="hidden" name="csrfmiddlewaretoken" class="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+
+
+{% endblock %}

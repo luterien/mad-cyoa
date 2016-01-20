@@ -43,5 +43,8 @@ urlpatterns = [
     url(r'^snippet/create/$', 'stories.ajax.create_snippet', name="create-snippet"),
     url(r'^story/create/$', 'stories.views.create_story', name="create-story"),
     url(r'^story/(?P<slug>[\w-]+)/$', 'stories.views.story_detail', name="story-detail"),
+
+    url(r'^story/(?P<story_id>\d+)/play/$', 'stories.views.play', name="play"),
+    url(r'^story/play/move$', 'stories.ajax.make_play', name="make-play"),
     
 ]

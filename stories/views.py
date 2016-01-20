@@ -56,6 +56,22 @@ def create_story(request):
 	return render(request, "stories/create_story.html", {"form": form})
 
 
-def play(request):
+def play(request, story_id):
+	""" initialize a new game """
+	from .game import Game
 
-	pass
+	story = get_object_or_404(Story, id=story_id)
+
+	game = Game(request, story)
+
+	if request.GET.get("reset"):
+		game.reset()
+		return redirect(reverse("play", kwargs={"story_id": story_id}))
+	
+	game.resume()
+
+	snippet = Snippet.objects.get(
+		id=int(game.get_current_snippet_id())
+		)
+
+	return render(request, "stories/game.html", {"snippet": snippet})

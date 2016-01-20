@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block playUrl %}
+{% url 'play' object.story.id %}
+{% endblock %}
+
 {% block pageContent %}
 
 <div style="width: 100%; overflow:auto; font-family: Tahoma; font-size: 14px;">

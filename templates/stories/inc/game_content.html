@@ -1,0 +1,15 @@
+<div>
+	{% for source_choice in snippet.sources.all %}
+		<div>{{ source_choice.text }}</div>
+	{% endfor %}
+</div>
+
+<div>
+	{{ snippet.text }}
+</div>
+
+<div>
+	{% for target_choice in snippet.targets.all %}
+		<div class="choice" id="{{ target_choice.target.id }}">{{ target_choice.text }}</div>
+	{% endfor %}
+</div>

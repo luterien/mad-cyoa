@@ -23,9 +23,20 @@ class Displayable(models.Model):
 class Story(Displayable):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
 
+    @property
+    def first_chapter(self):
+        return self.related_chapters.all()[0]
+
 
 class Chapter(Displayable):
     story = models.ForeignKey(Story, related_name="related_chapters")
+
+    @property
+    def first_snippet(self):
+        try:
+            return self.related_snippets.get(starting_point=True)
+        except:
+            return self.related_snippets.order_by("-id")[0]
 
 
 class Snippet(Displayable):
