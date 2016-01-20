@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block pageContent %}
+
+<div class="accounts-container">
+
+	<div class="accounts-main">
+
+		<div class="mnt-title-container">
+			{% block accTitle %}
+			<div class="mnt-title"><a href="{% url 'update_account_details' %}" class="ac">Account Details</a></div>
+			<div class="mnt-title"><a href="{% url 'password_change' %}" class="ps">Contact Information</a></div>
+			<div class="mnt-title"><a href="{% url 'update_contact_information' %}" class="ps">Passwords</a></div>
+			{% endblock %}
+		</div>
+
+		<div class="accounts-form-container">
+
+			{% block accForm %}
+			form goes here
+			{% endblock %}
+
+		</div>
+
+	</div>
+
+	<div class="account-nav">
+
+	</div>
+
+</div>
+
+{% endblock %}

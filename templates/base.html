@@ -36,7 +36,12 @@ $(document).ready(function() {
         </div>
         <div class="dropdown ddhidden">
             <ul>
-                <li><a href="">New Snippet</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

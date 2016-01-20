@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'captcha',
+
     'apps.stories',
     'apps.main',
+    'apps.accounts',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,6 +59,8 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'madcyoa.urls'
+
+AUTH_USER_MODEL = "accounts.Account"
 
 TEMPLATES = [
     {

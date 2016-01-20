@@ -165,24 +165,6 @@
 
         });
 
-        function reloadChoices(text){
-            $.ajax({
-                method: "POST",
-                url: "{% url 'get-snippet-choices' %}",
-                data: {
-                    "snippet_id": $(".snippet_id").val(),
-                    "type": text
-                },
-                success:function(data){
-                    if (text == "target"){
-                        $(".target_choices").html(data);
-                    } else if (text == "source"){
-                        $(".source_choices").html(data);
-                    }
-                }
-            })
-        }
-
         // save
         /*
         $.ajax({
