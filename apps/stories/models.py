@@ -2,11 +2,13 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from autoslug import AutoSlugField
+
 
 class Displayable(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
-    slug = models.SlugField(max_length=100, null=True, blank=True)
-    text = models.TextField()
+    slug = AutoSlugField(populate_from="name", unique=True, null=True, blank=True)
+    text = models.TextField(null=True, blank=True)
     sort_order = models.IntegerField(default=1)
 
     class Meta:

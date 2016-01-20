@@ -59,7 +59,7 @@ ul {
     width: 418px; float: left;
 }
 .choice_name textarea {
-    width: 418px; 
+    width: 418px; padding: 1px 0;
 }
 
 .choice_opts {
@@ -148,6 +148,10 @@ ul {
 
 .menu-container .ddhidden {
     display: none;
+}
+
+.page-item .basic_ta {
+    width: 100%; padding: 5px 0;
 }
 
 

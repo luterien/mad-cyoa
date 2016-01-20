@@ -1,5 +1,5 @@
 <div>
-    
+
     <div class="frm">
 
         <div class="page-item">
@@ -16,7 +16,12 @@
         </div>
 
         <div class="page-item">
-            <textarea id="snippet_text" style="width:100%;" rows="8">{{ snippet.text }}</textarea>
+            <textarea id="snippet_name" class="basic_ta" rows="1">{{ snippet.name }}</textarea>
+        </div>
+
+
+        <div class="page-item">
+            <textarea id="snippet_text" class="basic_ta" rows="8">{{ snippet.text }}</textarea>
         </div>
 
         <div class="page-item">
@@ -106,7 +111,8 @@
                 url: "{% url 'update-source-choice' %}",
                 data: data,
                 success:function(data) {
-                    window.parent.toast("Updated");
+                    $(".source_choices").html(data);
+                    window.parent.toast("Choice updated");
                 } 
             })
         });
@@ -123,12 +129,13 @@
                 url: "{% url 'update-target-choice' %}",
                 data: data,
                 success:function(data) {
-                    window.parent.toast("Updated");
+                    $(".target_choices").html(data);
+                    window.parent.toast("Choice updated");
                 } 
             })
         });
 
-        $('.choice_go a').on('click', function(){
+        $(document).on('click', '.choice_go a', function(){
             var slug = $(this).attr("id");
             window.parent.loadFancy(slug);
         });
@@ -138,28 +145,43 @@
             var snippet_id = $(".snippet_id").val();
             var snippet_content = $("#snippet_text").val();
             var csrfmiddlewaretoken = $(".csrfmiddlewaretoken").val();
+            var snippet_name = $("#snippet_name").val();
 
             var data =  {
                 "content": snippet_content, 
                 "snippet_id": snippet_id,
+                "snippet_name": snippet_name,
                 "csrfmiddlewaretoken": csrfmiddlewaretoken,
             };
 
             $.ajax({
                 method: "POST",
                 url: "{% url 'update-snippet' %}",
-                data: {
-                    "content": snippet_content, 
-                    "snippet_id": snippet_id,
-                    "csrfmiddlewaretoken": csrfmiddlewaretoken,
-                },
+                data: data,
                 success:function(data) {
-                    console.log(data);
                     window.parent.toast("Content Changed");
                 } 
             })
 
         });
+
+        function reloadChoices(text){
+            $.ajax({
+                method: "POST",
+                url: "{% url 'get-snippet-choices' %}",
+                data: {
+                    "snippet_id": $(".snippet_id").val(),
+                    "type": text
+                },
+                success:function(data){
+                    if (text == "target"){
+                        $(".target_choices").html(data);
+                    } else if (text == "source"){
+                        $(".source_choices").html(data);
+                    }
+                }
+            })
+        }
 
         // save
         /*
