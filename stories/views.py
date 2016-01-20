@@ -55,3 +55,7 @@ def create_story(request):
 
 	return render(request, "stories/create_story.html", {"form": form})
 
+
+def play(request):
+
+	pass

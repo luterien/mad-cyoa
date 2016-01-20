@@ -8,13 +8,13 @@ from .models import Snippet, Choice, Chapter
 
 def edit_snippet(request, slug):
 
-    snippets = Snippet.objects.all()
+    snippets = Snippet.objects.filter()
 
     snippet = get_object_or_404(Snippet, slug=slug)
 
     ctx = {
         "snippet" : snippet,
-        "snippets" : snippets
+        "snippets" : Snippet.objects.filter(chapter=snippet.chapter)
     }
 
     return render(request, "edit_snippet.html", ctx)
@@ -46,7 +46,7 @@ def add_target_choice(request):
 
     return render(request, "include/target_choices.html", {
         "targets": base_s.targets.all(),
-        "snippets": Snippet.objects.all(),
+        "snippets": Snippet.objects.filter(chapter=base_s.chapter),
         })
 
 
@@ -62,7 +62,7 @@ def add_source_choice(request):
 
     return render(request, "include/source_choices.html", {
         "sources": base_s.sources.all(),
-        "snippets": Snippet.objects.all(),
+        "snippets": Snippet.objects.filter(chapter=base_s.chapter),
         })
 
 
@@ -72,6 +72,7 @@ def update_source_choice(request):
     source_id = request.POST.get("source_id")
     choice_text = request.POST.get("choice_text")
 
+    source = Snippet.objects.get(id=int(source_id))
     choice = Choice.objects.get(id=int(choice_id))
 
     choice.source_id = int(source_id)
@@ -80,7 +81,7 @@ def update_source_choice(request):
 
     return render(request, "include/source_choices.html", {
         "sources": choice.target.sources.all(),
-        "snippets": Snippet.objects.all(),
+        "snippets": Snippet.objects.filter(chapter=source.chapter),
         })
 
 
@@ -90,6 +91,7 @@ def update_target_choice(request):
     target_id = request.POST.get("target_id")
     choice_text = request.POST.get("choice_text")
 
+    target = Snippet.objects.get(id=int(target_id))
     choice = Choice.objects.get(id=int(choice_id))
 
     choice.target_id = int(target_id)
@@ -98,7 +100,7 @@ def update_target_choice(request):
 
     return render(request, "include/target_choices.html", {
         "targets": choice.source.targets.all(),
-        "snippets": Snippet.objects.all(),
+        "snippets": Snippet.objects.filter(chapter=target.chapter),
         })
 
 

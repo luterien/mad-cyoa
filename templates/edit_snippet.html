@@ -105,6 +105,7 @@
                     "source_id": $(this).closest(".choice-container").find("select").find("option:selected").attr("id"),
                     "choice_text": $(this).closest(".choice-container").find("textarea").val(),
                     "csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+                    "snippet_id": $(".snippet_id").val(),
                 };
             $.ajax({
                 method: "POST",
@@ -123,6 +124,7 @@
                     "target_id": $(this).closest(".choice-container").find("select").find("option:selected").attr("id"),
                     "choice_text": $(this).closest(".choice-container").find("textarea").val(),
                     "csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),
+                    "snippet_id": $(".snippet_id").val(),
                 };
             $.ajax({
                 method: "POST",
