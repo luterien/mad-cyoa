@@ -42,9 +42,9 @@ INSTALLED_APPS = [
 
     'captcha',
 
-    'apps.stories',
-    'apps.main',
-    'apps.accounts',
+    'stories',
+    'main',
+    'accounts',
 ]
 
 MIDDLEWARE_CLASSES = [

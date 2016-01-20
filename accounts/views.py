@@ -11,6 +11,8 @@ from .decorators import anonymous_required
 from .forms import RegistrationForm, LoginForm
 from .models import Account
 
+from stories.models import Story
+
 
 @anonymous_required('index')
 def login_user(request, login_success_url="/", template="accounts/login.html"):
@@ -67,6 +69,17 @@ def register_user(request, register_success_url="/", template="accounts/register
     return render(request, template, {'form': form})
 
 
+def dashboard():
+    """
+
+    """
+    pass
 
 
+def my_stories(request):
+    """
+        todo: permission checks
+    """
+    stories = Story.objects.filter(owner=request.user)
+    return render(request, "accounts/my_stories.html", {"stories": stories})
 

@@ -37,6 +37,7 @@ $(document).ready(function() {
         <div class="dropdown ddhidden">
             <ul>
                 {% if request.user.is_authenticated %}
+                <li><a href="{% url 'my-stories' %}">My Stories</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
@@ -48,8 +49,10 @@ $(document).ready(function() {
 </div>
 
 <div class="page-content">
-{% block pageContent %}
-{% endblock %}
+    <div class="page-cnt">
+        {% block pageContent %}
+        {% endblock %}
+    </div>
 </div>
 
 </body>

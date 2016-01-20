@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block pageContent %}
+
+{% for story in stories %}
+	<div class="story-name">{{ story}}</div>
+	<div class="story-chapters">
+		{% for chapter in story.related_chapters.all %}
+			<div class="chapter-detail">
+				<a href="{% url 'chapter-detail' chapter.slug %}">{{ chapter.name }}</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endfor %}
+
+{% endblock %}

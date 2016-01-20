@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from datetime import datetime
 
 from django.db import models
@@ -9,14 +11,8 @@ class Account(AbstractUser):
     """
         Customized Account Model
     """
-    avatar = models.ImageField(_("Profile Picture"), 
-        upload_to="users/avatars/", null=True, blank=True)   
-    about = models.TextField(_("About (HTML Enabled)"), null=True, blank=True)
-
-    class Meta:
-        pass
+    avatar = models.ImageField(upload_to="users/avatars/", null=True, blank=True)   
+    about = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return self.username
-
-

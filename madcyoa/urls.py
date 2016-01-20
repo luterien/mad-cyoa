@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from apps.stories.views import ChapterDetail
+from stories.views import ChapterDetail
 
 
 urlpatterns = [
@@ -26,19 +26,20 @@ urlpatterns = [
 
     url(r'^captcha/', include('captcha.urls')),
 
-    url(r'^accounts/', include('apps.accounts.urls')),
+    url(r'^accounts/', include('accounts.urls')),
 
-    url(r'^test/$', 'apps.main.views.test'),
+    url(r'^test/$', 'main.views.test'),
 
     url(r'^chapter/(?P<slug>[\w-]+)/$', ChapterDetail.as_view(), name="chapter-detail"),
 
-    url(r'^snippet/(?P<slug>[\w-]+)/edit/$', 'apps.stories.ajax.edit_snippet', name="edit-snippet"),
-    url(r'^snippet/update/$', 'apps.stories.ajax.update_snippet', name="update-snippet"),
-    url(r'^snippet/add_target_choice/$', 'apps.stories.ajax.add_target_choice', name="add-target-choice"),
-    url(r'^snippet/add_source_choice/$', 'apps.stories.ajax.add_source_choice', name="add-source-choice"),
-    url(r'^snippet/delete_choice/$', 'apps.stories.ajax.delete_choice', name="delete-choice"),
-    url(r'^snippet/update_source_choice/$', 'apps.stories.ajax.update_source_choice', name="update-source-choice"),
-    url(r'^snippet/update_target_choice/$', 'apps.stories.ajax.update_target_choice', name="update-target-choice"),
-    url(r'^snippet/create/$', 'apps.stories.ajax.create_snippet', name="create-snippet"),
+    url(r'^snippet/(?P<slug>[\w-]+)/edit/$', 'stories.ajax.edit_snippet', name="edit-snippet"),
+    url(r'^snippet/update/$', 'stories.ajax.update_snippet', name="update-snippet"),
+    url(r'^snippet/add_target_choice/$', 'stories.ajax.add_target_choice', name="add-target-choice"),
+    url(r'^snippet/add_source_choice/$', 'stories.ajax.add_source_choice', name="add-source-choice"),
+    url(r'^snippet/delete_choice/$', 'stories.ajax.delete_choice', name="delete-choice"),
+    url(r'^snippet/update_source_choice/$', 'stories.ajax.update_source_choice', name="update-source-choice"),
+    url(r'^snippet/update_target_choice/$', 'stories.ajax.update_target_choice', name="update-target-choice"),
+    url(r'^snippet/create/$', 'stories.ajax.create_snippet', name="create-snippet"),
+    url(r'^story/(?P<slug>[\w-]+)/$', 'stories.views.story_detail', name="story-detail"),
     
 ]

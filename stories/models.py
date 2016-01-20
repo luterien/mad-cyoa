@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.conf import settings
 
 from autoslug import AutoSlugField
+
 
 
 class Displayable(models.Model):
@@ -20,7 +22,7 @@ class Displayable(models.Model):
 
 
 class Story(Displayable):
-    pass
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
 
 
 class Chapter(Displayable):
