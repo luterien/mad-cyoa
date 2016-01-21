@@ -51,9 +51,11 @@
 			Create your own interactive stories using our easy-to-use layout. Browse other people's stories and interact with other writers.
 		</div>
 		<div class="intro-account">
+			<form action="{% url 'register' %}" method="post">{% csrf_token %}
 			<input class="text_input" type="text" name="account_email">
 			<input class="text_input" type="password" name="account_password">
 			<input class="submit" type="submit" value="create account">
+			</form>
 		</div>
 
 	</div>

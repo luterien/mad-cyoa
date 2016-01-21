@@ -23,6 +23,7 @@ class RegistrationForm(forms.Form):
         self.fields["email"].widget.attrs = {"placeholder": "E-Mail"}
         self.fields["password1"].widget.attrs = {"placeholder": "Password"}
         self.fields["password2"].widget.attrs = {"placeholder": "Password (Again)"}
+        self.fields["captcha"].widget.attrs = {"placeholder": "Captcha"}
     
     def clean_password2(self):
         if 'password1' in self.cleaned_data:

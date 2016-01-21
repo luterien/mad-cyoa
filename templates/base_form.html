@@ -2,18 +2,22 @@
 
 {% block pageContent %}
 
-<div>
+<div class="register-form form-container">
 
 	<form action="." method="post">{% csrf_token %}
 
+		<div class="form-title">{% block formTitle %}Create Account{% endblock %}</div>
+
 		{% for field in form %}
 		<div class="form-row">
-			{{ field.label }}
-			{{ field }}
+			<div class="field-value">{{ field }}</div>
+			{% if field.errors %}<span class="field-error">{{ field.errors }}</span>{% endif %}
 		</div>
 		{% endfor %}
 
-		<input type="submit" value="Send" />
+		<div class="form-row">
+			<input type="submit" value="{% block formSubmitValue %}{% endblock %}" class="form-submit" />
+		</div>
 
 	</form>
 

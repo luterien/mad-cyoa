@@ -88,7 +88,7 @@ ul {
     width: 259px; float: left; padding-left: 10px;
 }
 .choice_opts select {
-    width: 259px; height: 34px;
+    width: 259px; height: 25px;
 }
 
 .choice_action {
@@ -103,13 +103,13 @@ ul {
 }
 
 .choice-container img {
-    width: 24px; height: 24px;
+    width: 20px; height: 20px;
     position: relative; top: 3px;
     margin: 0 0 0 12px;
 }
 
 .choice_remove img {
-    width: 18px; height: 18px;
+    width: 14px; height: 14px;
     position: relative; top: 6px;
     margin: 0 0 0 12px;
 }
@@ -148,11 +148,11 @@ ul {
 }
 
 .more img {
-    margin-right: 10px; width: 24px; height: 26px; margin-top: 2px;
+    width: 24px; height: 26px; margin-top: 2px;
 }
 
 .menu-container .dropdown {
-    position: fixed; right: 15%; top: 53px; margin-right: 13px; background: #000;
+    position: fixed; right: 15%; top: 53px; background: #000;
     border: 1px solid #000;
 }
 
@@ -226,3 +226,45 @@ ul {
 .chapter-detail {
     margin-right: 7px; float: left;
 }
+
+
+/* forms */
+
+
+.form-container {
+    
+}
+
+.form-row {
+    width: 100%; margin-bottom: 15px; overflow: auto;
+}
+
+.field-label {
+    display: block;
+}
+
+.field-value {
+    display: block;
+}
+
+.field-value input {
+    padding: 7px 7px; width: 100%;
+}
+
+.register-form {
+    background: #eee; width: 600px; margin: 30px auto 0; padding: 30px 55px;
+}
+
+.form-title {
+    font-size: 20px; margin-bottom: 22px;
+}
+
+.form-submit {
+    font-size: 14px; padding: 5px 7px; margin-top: 10px; width: 100%;
+}
+
+.field-error {
+    font-size: 14px;
+}
+
+
