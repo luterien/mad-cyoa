@@ -1,14 +1,5 @@
 
 
-
-class GameMixin(object):
-    pass
-
-
-class StorageMixin(object):
-    pass
-
-
 class Game(object):
     """
 

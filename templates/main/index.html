@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block pageContent %}
+
+<style type="text/css">
+
+.intro {
+	width: 100%; overflow: auto; margin-top: 50px;
+}
+
+.intro-lft {
+	width: 40%; float: left;
+}
+
+.intro-rgt {
+	width: 50%; float: right;
+}
+
+.intro-title {
+	font-size: 40px; text-transform: capitalize; 
+}
+
+.intro-img img {
+	width: 100%;
+}
+
+.intro-desc {
+	margin-top: 30px; font-size: 25px; font-weight: lighter;
+}
+
+.intro-account {
+	margin-top: 35px; font-size: 15px;
+}
+
+.intro-account .text_input {
+	padding: 7px; display: block; width: 90%; margin-bottom: 10px;
+}
+
+.submit {
+	padding: 10px; text-transform: capitalize; display: block; width: 90%;
+}
+
+</style>
+
+<div class="intro">
+
+	<div class="intro-lft">
+
+		<div class="intro-title">Write your very own <br />interactive story</div>
+		<div class="intro-desc">
+			Create your own interactive stories using our easy-to-use layout. Browse other people's stories and interact with other writers.
+		</div>
+		<div class="intro-account">
+			<input class="text_input" type="text" name="account_email">
+			<input class="text_input" type="password" name="account_password">
+			<input class="submit" type="submit" value="create account">
+		</div>
+
+	</div>
+
+	<div class="intro-rgt">
+
+		<div class="intro-img">
+			<img src="/static/images/ss.png">
+		</div>
+
+	</div>
+
+</div>
+
+{% endblock %}

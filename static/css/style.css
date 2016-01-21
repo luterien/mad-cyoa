@@ -9,11 +9,30 @@ ul {
 }
 
 .page-content {
-    width: 80%; margin: 0 auto;
+    width: 70%; margin: 0 auto;
 }
 
 .page-cnt {
     margin-top: 15px;
+}
+
+
+/* game_content.html */
+
+.game-text {
+    margin-bottom: 25px;
+}
+
+.game-choices {
+
+}
+
+.game-choices .choice {
+    padding: 5px; border: 1px solid #000; margin-top: 13px;
+}
+
+.game {
+    background: #eee; padding: 15px;
 }
 
 
@@ -103,12 +122,12 @@ ul {
 }
 
 .menu-items {
-    width: 80%; overflow:auto; color: #fff;
+    width: 70%; overflow:auto; color: #fff; margin: 0 auto;
     padding: 10px 10%; border-bottom: 3px solid #1B1E1F;
 }
 
 .menu-container a {
-    color: #fff; 
+    color: #fff; text-decoration: none;
 }
 
 .menu-container .title {
@@ -133,7 +152,7 @@ ul {
 }
 
 .menu-container .dropdown {
-    position: fixed; right: 10%; top: 53px; margin-right: 13px; background: #000;
+    position: fixed; right: 15%; top: 53px; margin-right: 13px; background: #000;
     border: 1px solid #000;
 }
 

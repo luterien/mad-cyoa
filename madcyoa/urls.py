@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.urls')),
 
     url(r'^test/$', 'main.views.test'),
+    url(r'^$', 'main.views.index'),
 
     url(r'^chapter/(?P<slug>[\w-]+)/$', ChapterDetail.as_view(), name="chapter-detail"),
     url(r'^story/(?P<story_id>\d+)/chapter/create/$', 'stories.views.create_chapter', name="create-chapter"),

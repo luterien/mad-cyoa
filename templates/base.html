@@ -24,7 +24,7 @@ $(document).ready(function() {
 <div class="menu-container">
     <div class="menu-items">
         <div class="title">
-            <a>MadCYOA</a>
+            <a href="/">MadCYOA</a>
         </div>
         <div class="play-game">
             <a href="{% block playUrl %}{% endblock %}">
@@ -44,6 +44,8 @@ $(document).ready(function() {
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
                 {% endif %}
+                {% block extraMenuItems %}
+                {% endblock %}
             </ul>
         </div>
     </div>
