@@ -2,23 +2,29 @@
 
 {% block pageContent %}
 
-{% for story in stories %}
-<div class="story-item">
-	<div class="story-name">
-		<span>{{ story}}</span> <a href="{% url 'create-chapter' story.id %}">add chapter</a>
+<div class="my-stories">
+{% if stories %}
+	{% for story in stories %}
+	<div class="story-item">
+		<div class="story-name">
+			<span>{{ story}}</span> <a href="{% url 'create-chapter' story.slug %}">add chapter</a>
+		</div>
+		<div class="story-chapters">
+			{% if story.related_chapters.all %}
+				{% for chapter in story.related_chapters.all %}
+					<div class="chapter-detail">
+						<a href="{% url 'chapter-detail' chapter.slug %}">{{ chapter.name }}</a>
+					</div>
+				{% endfor %}
+			{% else %}
+				<div>No chapters yet.</div>
+			{% endif %}
+		</div>
 	</div>
-	<div class="story-chapters">
-		{% if story.related_chapters.all %}
-			{% for chapter in story.related_chapters.all %}
-				<div class="chapter-detail">
-					<a href="{% url 'chapter-detail' chapter.slug %}">{{ chapter.name }}</a>
-				</div>
-			{% endfor %}
-		{% else %}
-			<div>No chapters yet.</div>
-		{% endif %}
-	</div>
+	{% endfor %}
+{% else %}
+	<span>You do not have any stories. <a href="{% url 'create-story' %}">Create one ?</a></span>
+{% endif %}
 </div>
-{% endfor %}
 
 {% endblock %}
