@@ -36,7 +36,7 @@ class Chapter(Displayable):
         try:
             return self.related_snippets.get(starting_point=True)
         except:
-            return self.related_snippets.order_by("-id")[0]
+            return self.related_snippets.order_by("id")[0]
 
 
 class Snippet(Displayable):

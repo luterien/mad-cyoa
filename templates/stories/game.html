@@ -11,7 +11,7 @@ $(document).ready(function() {
     $(document).on('click', '.choice', function() {
         $.ajax({
         	method: 'post',
-        	url: '{% url "make-play" %}',
+        	url: '{% url "make-play" snippet.chapter.story.slug %}',
         	data: {
         		"selected_id": $(this).attr("id"),
         		"csrfmiddlewaretoken": $(".csrfmiddlewaretoken").val(),

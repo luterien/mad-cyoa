@@ -2,7 +2,7 @@
 
 {% block navExtra %}
 <div class="play-game">
-    <a href="{% url 'play' object.story.id %}">
+    <a href="{% url 'play' object.story.slug %}">
         <img src="/static/icons/play.png">
     </a>
 </div>
