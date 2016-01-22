@@ -7,7 +7,7 @@ from .models import Snippet, Choice, Chapter
 from .game import Game
 
 
-def make_play(request):
+def make_play(request, slug):
 
     s_id = request.POST.get("selected_id")
     c_id = request.POST.get("chapter_id")
@@ -23,8 +23,6 @@ def make_play(request):
 
 def edit_snippet(request, slug):
 
-    snippets = Snippet.objects.filter()
-
     snippet = get_object_or_404(Snippet, slug=slug)
 
     ctx = {
@@ -35,7 +33,7 @@ def edit_snippet(request, slug):
     return render(request, "stories/edit_snippet.html", ctx)
 
 
-def update_snippet(request):
+def update_snippet(request, slug):
 
     s_id = request.POST.get("snippet_id")
     s_content = request.POST.get("content")
@@ -62,7 +60,7 @@ def add_target_choice(request):
     return render(request, "include/target_choices.html", {
         "targets": base_s.targets.all(),
         "snippets": Snippet.objects.filter(chapter=base_s.chapter),
-        })
+    })
 
 
 def add_source_choice(request):
@@ -78,7 +76,34 @@ def add_source_choice(request):
     return render(request, "include/source_choices.html", {
         "sources": base_s.sources.all(),
         "snippets": Snippet.objects.filter(chapter=base_s.chapter),
-        })
+    })
+
+
+def add_choice(request, slug):
+
+    choice_type = request.POST.get("choice_type")
+
+    base_s = Snippet.objects.get(slug=slug)
+
+    if choice_type == "source":
+        choice = Choice(target=base_s)
+        choice.save()
+        template = "include/source_choices.html"
+        ctx = {
+            "sources": base_s.sources.all(),
+            "snippets": Snippet.objects.filter(chapter=base_s.chapter),
+        }
+
+    elif choice_type == "target":
+        choice = Choice(source=base_s)
+        choice.save()
+        template = "include/target_choices.html"
+        ctx = {
+            "targets": base_s.targets.all(),
+            "snippets": Snippet.objects.filter(chapter=base_s.chapter),
+        }
+
+    return render(request, template, ctx)
 
 
 def update_source_choice(request):
@@ -97,7 +122,7 @@ def update_source_choice(request):
     return render(request, "include/source_choices.html", {
         "sources": choice.target.sources.all(),
         "snippets": Snippet.objects.filter(chapter=source.chapter),
-        })
+    })
 
 
 def update_target_choice(request):
@@ -116,10 +141,47 @@ def update_target_choice(request):
     return render(request, "include/target_choices.html", {
         "targets": choice.source.targets.all(),
         "snippets": Snippet.objects.filter(chapter=target.chapter),
-        })
+    })
 
 
-def delete_choice(request):
+def update_choice(request, slug):
+    
+    base_s = Snippet.objects.get(slug=slug)
+
+    template = ""
+    ctx = {}
+
+    choice_id = request.POST.get("choice_id")
+    snippet_id = request.POST.get("snippet_id")
+    choice_text = request.POST.get("choice_text")
+    choice_type = request.POST.get("choice_type")
+
+    choice = Choice.objects.get(id=int(choice_id))
+    snippet = Snippet.objects.get(id=int(snippet_id))
+
+    if choice_type == "source":
+        choice.source = snippet
+        template = "include/source_choices.html"
+        ctx = {
+            "sources": choice.target.sources.all(),
+            "snippets": Snippet.objects.filter(chapter=base_s.chapter),
+        }
+
+    elif choice_type == "target":
+        choice.target = snippet
+        template = "include/target_choices.html"
+        ctx = {
+            "targets": choice.source.targets.all(),
+            "snippets": Snippet.objects.filter(chapter=base_s.chapter),
+        }
+
+    choice.text = choice_text
+    choice.save()
+
+    return render(request, template, ctx)
+
+
+def delete_choice(request, slug):
 
     choice_id = request.POST.get("choice_id")
 

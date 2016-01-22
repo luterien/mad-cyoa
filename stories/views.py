@@ -22,15 +22,14 @@ def story_detail(request, slug):
 		todo: add permission checks & redesign the template
 	"""
 	story = get_object_or_404(Story, slug=slug)
-
 	return render(request, "stories/story_detail.html", {"story": story})
 
 
 @can_edit_story()
-def create_chapter(request, story_id):
+def create_chapter(request, slug):
 
 	if request.method == "POST":
-		story = get_object_or_404(Story, id=story_id)
+		story = get_object_or_404(Story, slug=slug)
 		form = CreateChapterForm(request.POST)
 
 		if form.is_valid():
@@ -58,17 +57,17 @@ def create_story(request):
 	return render(request, "stories/create_story.html", {"form": form})
 
 
-def play(request, story_id):
+def play(request, slug):
 	""" initialize a new game """
 	from .game import Game
 
-	story = get_object_or_404(Story, id=story_id)
+	story = get_object_or_404(Story, slug=slug)
 
 	game = Game(request, story)
 
 	if request.GET.get("reset"):
 		game.reset()
-		return redirect(reverse("play", kwargs={"story_id": story_id}))
+		return redirect(reverse("play", kwargs={"slug": slug}))
 	
 	game.resume()
 
