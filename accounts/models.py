@@ -16,3 +16,7 @@ class Account(AbstractUser):
 
     def __unicode__(self):
         return self.username
+
+    @property
+    def stories(self):
+    	return self.story_set.all()

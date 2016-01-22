@@ -8,11 +8,12 @@ from django.views.generic.edit import CreateView
 
 from .models import Chapter, Snippet, Choice, Story
 from .forms import CreateChapterForm, CreateStoryForm
+from .decorators import can_edit_story
 
 
 class ChapterDetail(DetailView):
     model = Chapter
-    template_name = "chapter_detail.html"
+    template_name = "stories/chapter_detail.html"
 
 
 def story_detail(request, slug):
@@ -25,6 +26,7 @@ def story_detail(request, slug):
 	return render(request, "stories/story_detail.html", {"story": story})
 
 
+@can_edit_story()
 def create_chapter(request, story_id):
 
 	if request.method == "POST":

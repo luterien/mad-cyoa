@@ -26,11 +26,8 @@ $(document).ready(function() {
         <div class="title">
             <a href="/">MadCYOA</a>
         </div>
-        <div class="play-game">
-            <a href="{% block playUrl %}{% endblock %}">
-                <img src="/static/icons/play.png">
-            </a>
-        </div>
+        {% block navExtra %}
+        {% endblock %}
         <div class="more">
             <img src="/static/icons/drawer.png">
         </div>

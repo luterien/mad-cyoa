@@ -32,7 +32,7 @@ def edit_snippet(request, slug):
         "snippets" : Snippet.objects.filter(chapter=snippet.chapter)
     }
 
-    return render(request, "edit_snippet.html", ctx)
+    return render(request, "stories/edit_snippet.html", ctx)
 
 
 def update_snippet(request):
