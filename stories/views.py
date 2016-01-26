@@ -76,3 +76,9 @@ def play(request, slug):
 		)
 
 	return render(request, "stories/game.html", {"snippet": snippet})
+
+
+def download_story(request):
+	pass
+
+

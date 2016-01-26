@@ -16,6 +16,9 @@ ul {
     margin-top: 15px;
 }
 
+#sv_form {
+    padding: 6px 10px;
+}
 
 /* game_content.html */
 
@@ -81,14 +84,14 @@ ul {
     width: 418px; float: left;
 }
 .choice_name textarea {
-    width: 418px; padding: 1px 0;
+    width: 418px; padding: 5px 5px;
 }
 
 .choice_opts {
     width: 259px; float: left; padding-left: 10px;
 }
 .choice_opts select {
-    width: 259px; height: 25px;
+    width: 259px; height: 34px;
 }
 
 .choice_action {
@@ -104,16 +107,19 @@ ul {
 
 .choice-container img {
     width: 20px; height: 20px;
-    position: relative; top: 3px;
-    margin: 0 0 0 12px;
-}
-
-.choice_remove img {
-    width: 14px; height: 14px;
     position: relative; top: 6px;
     margin: 0 0 0 12px;
 }
 
+.choice_remove img {
+    width: 20px; height: 20px;
+    position: relative; top: 6px;
+    margin: 0 0 0 12px;
+}
+
+.fancybox-cnt {
+
+}
 
 /* nav menu */
 
@@ -174,18 +180,26 @@ ul {
 }
 
 .page-item .basic_ta {
-    width: 100%; padding: 5px 0;
+    width: 100%; padding: 5px;
 }
 
 
 /* chapter_detail.html */
 
 .snp {
-    width: 19%; float:left; background: #eee; margin-right:1%; height: 200px; margin-top: 10px;
+    width: 19%; float:left; background: #fff; margin-right:1%; height: 200px; margin-top: 10px;
+}
+
+.snp-brd {
+    border: 2px solid #DE1D40; height: 196px;
 }
 
 .snp-text {
-    padding: 10px;
+    padding: 10px; 
+}
+
+.snp-title {
+    padding: 10px; background: #DE1D40; color: #fff; 
 }
 
 .snp:hover {
@@ -197,7 +211,7 @@ ul {
 }
 
 .add-snippet {
-    margin-top: 70px; color: #fff;
+    margin-top: 70px; color: #DE1D40;
 }
 
 

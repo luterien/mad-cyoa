@@ -47,38 +47,6 @@ def update_snippet(request, slug):
     return HttpResponse("OK")
 
 
-def add_target_choice(request):
-    
-    snippet_id = request.POST.get("snippet_id")
-    choice_name = request.POST.get("choice_name")
-
-    base_s = Snippet.objects.get(id=int(snippet_id))
-
-    choice = Choice(source=base_s)
-    choice.save()
-
-    return render(request, "include/target_choices.html", {
-        "targets": base_s.targets.all(),
-        "snippets": Snippet.objects.filter(chapter=base_s.chapter),
-    })
-
-
-def add_source_choice(request):
-    
-    snippet_id = request.POST.get("snippet_id")
-    choice_name = request.POST.get("choice_name")
-
-    base_s = Snippet.objects.get(id=int(snippet_id))
-
-    choice = Choice(target=base_s)
-    choice.save()
-
-    return render(request, "include/source_choices.html", {
-        "sources": base_s.sources.all(),
-        "snippets": Snippet.objects.filter(chapter=base_s.chapter),
-    })
-
-
 def add_choice(request, slug):
 
     choice_type = request.POST.get("choice_type")
@@ -106,44 +74,6 @@ def add_choice(request, slug):
     return render(request, template, ctx)
 
 
-def update_source_choice(request):
-
-    choice_id = request.POST.get("choice_id")
-    source_id = request.POST.get("source_id")
-    choice_text = request.POST.get("choice_text")
-
-    source = Snippet.objects.get(id=int(source_id))
-    choice = Choice.objects.get(id=int(choice_id))
-
-    choice.source_id = int(source_id)
-    choice.text = choice_text
-    choice.save()
-
-    return render(request, "include/source_choices.html", {
-        "sources": choice.target.sources.all(),
-        "snippets": Snippet.objects.filter(chapter=source.chapter),
-    })
-
-
-def update_target_choice(request):
-
-    choice_id = request.POST.get("choice_id")
-    target_id = request.POST.get("target_id")
-    choice_text = request.POST.get("choice_text")
-
-    target = Snippet.objects.get(id=int(target_id))
-    choice = Choice.objects.get(id=int(choice_id))
-
-    choice.target_id = int(target_id)
-    choice.text = choice_text
-    choice.save()
-
-    return render(request, "include/target_choices.html", {
-        "targets": choice.source.targets.all(),
-        "snippets": Snippet.objects.filter(chapter=target.chapter),
-    })
-
-
 def update_choice(request, slug):
     
     base_s = Snippet.objects.get(slug=slug)
@@ -157,7 +87,13 @@ def update_choice(request, slug):
     choice_type = request.POST.get("choice_type")
 
     choice = Choice.objects.get(id=int(choice_id))
-    snippet = Snippet.objects.get(id=int(snippet_id))
+
+    if snippet_id:
+        snippet = Snippet.objects.get(id=int(snippet_id))
+    elif choice_text and not snippet_id:
+        snippet = Snippet.objects.create(chapter=base_s.chapter)
+        snippet.name = "Empty Snippet " + str(snippet.pk)
+        snippet.save()
 
     if choice_type == "source":
         choice.source = snippet

@@ -14,8 +14,13 @@
 
 	{% for snippet in object.related_snippets.all %}
 	<div class="snp snippet" id="{{ snippet.slug }}">
-		<div class="snp-text">
-			{{ snippet.text|default:'-' }}
+		<div class="snp-brd">
+			<div class="snp-title">
+				{{ snippet.name|default:'-' }}
+			</div>
+			<div class="snp-text">
+				{{ snippet.text|default:'-' }}
+			</div>
 		</div>
 	</div>
 	{% endfor %}

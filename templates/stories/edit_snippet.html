@@ -1,8 +1,8 @@
-<div>
+<div class="fancybox-cnt">
 
     <div class="frm">
 
-        <div class="page-item">
+        <div class="page-item hideFirst">
             <div class="source_choices">
                 {% for choice in snippet.sources.all %}
                 {% include 'include/source_single.html' %}
@@ -15,12 +15,12 @@
             </div>
         </div>
 
-        <div class="page-item">
+        <div class="page-item" style="font-size: 15px;">
             <textarea id="snippet_name" class="basic_ta" rows="1">{{ snippet.name }}</textarea>
         </div>
 
 
-        <div class="page-item">
+        <div class="page-item" style="font-size: 15px;">
             <textarea id="snippet_text" class="basic_ta" rows="8">{{ snippet.text }}</textarea>
         </div>
 
@@ -42,7 +42,7 @@
         <div class="page-item">
             <input type="hidden" name="csrfmiddlewaretoken" class="csrfmiddlewaretoken" value="{{ csrf_token }}">
             <input type="hidden" value="{{ snippet.id }}" class="snippet_id">
-            <input type="submit" value="save" id="sv_form">
+            <input type="submit" value="Update Content" id="sv_form">
         </div>
 
     </div>
