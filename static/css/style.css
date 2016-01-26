@@ -23,7 +23,7 @@ ul {
 /* game_content.html */
 
 .game-text {
-    margin-bottom: 25px;
+    margin-bottom: 20px; padding: 18px 0;
 }
 
 .game-choices {
@@ -31,11 +31,12 @@ ul {
 }
 
 .game-choices .choice {
-    padding: 5px; border: 1px solid #000; margin-top: 13px;
+    padding: 8px 10px; border: 1px solid #DE1D40; margin-top: 13px;
+    color: #DE1D40;
 }
 
 .game {
-    background: #eee; padding: 15px;
+    background: #fff; font-size: 13px;
 }
 
 
